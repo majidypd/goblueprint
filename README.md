@@ -1,0 +1,2 @@
+# goblueprint
+Go app prototype
