@@ -36,6 +36,7 @@ To run the project, execute the following command from the project's root direct
 ```
 go run main.go serv 
 ```
+This command will compile and run the project. Ensure that the go.mod file is present in the project's root directory for the dependencies to be correctly managed.
 
 ## Project Structure
 ```
@@ -64,8 +65,74 @@ goblueprint/
 └── main.go               # Application entry points
 ```
 
+## Dependency Injection: Adding Custom Dependencies
+goblueprint utilizes the [Uber Dig](https://github.com/uber-go/dig) package for dependency injection, allowing for a clean and flexible way to manage dependencies across your application. This section will guide you on how to add your own dependencies to the dig container.
 
-This command will compile and run the project. Ensure that the go.mod file is present in the project's root directory for the dependencies to be correctly managed.
+### Step 1: Define Your Dependency
+First, you need to define the dependency you want to add. This involves creating a struct or function that your application requires. For example, let's say you want to add a custom `Database` service:
+```
+package database
+
+type Database struct {
+    // Database connection details
+}
+
+func NewDatabase() *Database {
+    return &Database{}
+}
+```
+### Step 2: Add the Dependency to the Container
+Next, you need to add your new dependency to the `dig` container. This is done in the `NewDig` function within the `cmd` package. Here's how you can modify the `NewDig` function to include your `Database` service:
+```
+package cmd
+
+import (
+    "go.uber.org/dig"
+
+    "github.com/majidypd/goblueprint/database"
+)
+
+// NewDig service provider...
+func NewDig() *dig.Container {
+    container := dig.New()
+    if err := container.Provide(database.NewDatabase); err != nil {
+        panic(err)
+    }
+    // Add other dependencies as needed...
+    return container
+}
+```
+
+### Step 3: Inject Your Dependency
+Finally, you can inject your new dependency into any part of your application that requires it. For example, if you have a service that needs to access the database, you can do so like this:
+```
+package service
+
+import (
+    "context"
+    "github.com/majidypd/goblueprint/database"
+)
+
+type MyService struct {
+    DB *database.Database
+}
+
+func NewMyService(db *database.Database) *MyService {
+    return &MyService{DB: db}
+}
+
+func (s *MyService) DoSomething(ctx context.Context) {
+    // Use s.DB to interact with the database...
+}
+```
+And then, ensure your `NewMyService` function is provided to the `dig` container in the `NewDig` function:
+```
+if err := container.Provide(service.NewMyService); err != nil {
+    panic(err)
+}
+
+```
+By following these steps, you can easily add and manage your own dependencies within the `goblueprint` project using the dig package for dependency injection.
 ## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests or open issues to improve this blueprint.
