@@ -13,6 +13,30 @@ This project is a blueprint for starting a new Golang project from scratch. It c
 
 To get started with this project, you'll need to have Go installed on your machine. Once you have Go set up, you can clone this repository and start building your application.
 
+### Prerequisites
+
+- Ensure you have Go version  1.22 or higher installed on your system. You can check your Go version by running `go version` in your terminal.
+- Familiarize yourself with Go modules, as this project uses Go modules for dependency management.
+
+### Installation
+
+1. **Clone the Repository**: First, clone this repository to your local machine.
+```
+git clone https://github.com/majidypd/goblueprint.git
+cd goblueprint
+```
+
+2. **Install Dependencies**: This project uses Go modules for dependency management. Run the following command to download all necessary dependencies:
+```
+go mod download
+```
+
+## Running the Project
+To run the project, execute the following command from the project's root directory:
+```
+go run main.go serv 
+```
+This command will compile and run the project. Ensure that the go.mod file is present in the project's root directory for the dependencies to be correctly managed.
 ## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests or open issues to improve this blueprint.
