@@ -45,7 +45,7 @@ cd goblueprint
 ```
 
 2. **Install Dependencies**: This project uses Go modules for dependency management. Run the following command to download all necessary dependencies:
-```go
+```
 go mod download
 ```
 
