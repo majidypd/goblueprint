@@ -36,6 +36,35 @@ To run the project, execute the following command from the project's root direct
 ```
 go run main.go serv 
 ```
+
+## Project Structure
+```
+goblueprint/
+├── cmd/                  
+│   └── di.go             # Implements dependency injection
+│   └── http_server.go    # Executes the HTTP server command
+│   └── root.go           # Serves as the root directory for all commands
+├── config/               # Configuration files and utilities
+│   └── config.go         # Configuration loading and parsing
+├── internal/             # Internal packages
+│   ├── app/              # Contains business logic and services
+│   │   └── health.go     # Example of a health check controller
+│   ├── database/         # Houses database migrations
+│   │   └── migration.go  # Example of a database migration script
+│   ├── middleware/       # Contains API middleware
+│   │   └── sample.go     # Example middleware implementation
+│   ├── repository/       # Repository layer for data access
+│   │   └── sample.go     # Example repository implementation
+│   ├── router/           # Defines API routes
+│   │   └── routes.go     # API route definitions
+│   └── utils/            # Includes utility functions and helpers
+│       └── utils.go      # Example utility function
+├── go.mod                # Go module definition
+└── README.md             # Project README
+└── main.go               # Application entry points
+```
+
+
 This command will compile and run the project. Ensure that the go.mod file is present in the project's root directory for the dependencies to be correctly managed.
 ## Contributing
 
