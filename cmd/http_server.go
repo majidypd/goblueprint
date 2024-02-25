@@ -33,11 +33,11 @@ func init() {
 func runServer() {
 	container := NewDig()
 	if err := container.Invoke(func(cfg *config.Config, router *routes.ApiRouteHandler) {
-		fmt.Printf("Server is listening on port %s...\n", cfg.App.Port)
+		fmt.Printf("Server is listening on port %s...\n", cfg.ServerPort)
 
 		// Create a new HTTP server
 		srv := &http.Server{
-			Addr:    ":" + cfg.App.Port,
+			Addr:    ":" + cfg.ServerPort,
 			Handler: router.Router,
 		}
 
